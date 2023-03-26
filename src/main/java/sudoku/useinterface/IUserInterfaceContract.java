@@ -12,7 +12,7 @@ public interface IUserInterfaceContract {
         void setListener(IUserInterfaceContract.EventListener listener);
         void updateSquare(int x, int y, int input);
         void updateBoard(Game game);
-        void showDialog(String Message);
+        void showDialog(String message);
         void showError(String message);
     }
 }
