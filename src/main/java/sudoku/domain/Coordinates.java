@@ -1,5 +1,7 @@
 package sudoku.domain;
 
+import java.util.Objects;
+
 public class Coordinates {
     private final int x;
     private final int y;
@@ -29,5 +31,10 @@ public class Coordinates {
                 y == that. y;
     }
 
+
     @Override
+    public int hashCode(){
+        return Objects.hash(x,y);
+    }
+
 }
