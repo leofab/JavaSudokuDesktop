@@ -4,7 +4,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
@@ -180,7 +183,27 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 
     @Override
     public void handle(KeyEvent keyEvent) {
+        if (keyEvent.getEventType() == KeyEvent.KEY_PRESSED);{
+            if(keyEvent.getText().matches("[0-9]")
+            ) {
+                int value = Integer.parseInt(keyEvent.getText());
+                handleInput(value, keyEvent.getSource());
+            } else if (keyEvent.getCode() == KeyCode.BACK_SPACE); {
+                handleInput(0, keyEvent.getSource());
+            }else {
+                ((TextField) keyEvent.getSource()).setText("");
+            }
+            keyEvent.consume();
+        }
 
+    }
+
+    private void handleInput(int i, Object source) {
+        listener.onSudokuInput(
+                ((SudokuTextField) source).getX(),
+                ((SudokuTextField) source).getY(),
+                i
+        );
     }
 
     @Override
@@ -227,11 +250,16 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
 
     @Override
     public void showDialog(String message) {
+        Alert dialog = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.OK);
+        dialog.showAndWait();
+
+        if(dialog.getResult() == ButtonType.OK) listener.onDialogClick();
 
     }
 
     @Override
     public void showError(String message) {
-
+        Alert dialog = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        dialog.showAndWait();
     }
 }
