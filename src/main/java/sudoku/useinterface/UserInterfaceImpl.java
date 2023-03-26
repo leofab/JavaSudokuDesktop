@@ -3,11 +3,13 @@ package sudoku.useinterface;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sudoku.domain.Coordinates;
 import sudoku.domain.Game;
@@ -54,9 +56,17 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
     }
 
     private void drawBackground(Group root) {
+        Scene scene = new Scene(root, WINDOW_X, WINDOW_Y);
+        scene.setFill(WINDOW_BACKGROUND_COLOR);
+        stage.setScene(scene);
     }
 
     private void drawTitle(Group root) {
+        Text title = new Text(235,690,SUDOKU);
+        title.setFill(Color.WHITE);
+        Font titleFont = new Font (43);
+        title.setFont(titleFont);;
+        root.getChildren().add(title);
     }
 
     private void drawBoard(Group root) {
