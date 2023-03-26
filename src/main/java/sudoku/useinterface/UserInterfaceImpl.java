@@ -60,6 +60,17 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
     }
 
     private void drawBoard(Group root) {
+        Rectangle boardBackgroun = new Rectangle();
+        boardBackgroun.setX(BOARD_PADDING);
+        boardBackgroun.setY(BOARD_PADDING);
+
+        boardBackgroun.setHeight(BOARD_X_AND_Y);
+        boardBackgroun.setWidth(BOARD_X_AND_Y);
+
+        boardBackgroun.setFill(BOARD_BACKGROUND_COLOR);
+
+        root.getChildren().addAll(boardBackgroun);
+
     }
 
     private void drawTextFields(Group root) {
@@ -78,6 +89,12 @@ public class UserInterfaceImpl implements IUserInterfaceContract.View,
                 SudokuTextField tile = new SudokuTextField(xIndex, yIndex);
 
                 styleSudokuTile(tile, x, y);
+
+                tile.setOnKeyPressed(this);
+
+                textFieldCoordinate.put(new Coordinates((xIndex, yIndex), tile);
+
+                root.getChildren().add(tile);
             }
         }
 
